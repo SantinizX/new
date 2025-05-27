@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página Interativa</title>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #1f1c2c, #928dab);
+      --text-color: #fff;
+    }
+
+    body.dark {
+      --bg: #f0f0f0;
+      --text-color: #222;
+      background: var(--bg);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 1.5em;
+      max-width: 600px;
+    }
+
+    a.button, button.toggle-dark {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      margin: 10px;
+      color: #fff;
+      background: #ff416c;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    a.button:hover, button.toggle-dark:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 65, 108, 0.6);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    #popup {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: #fff;
+      color: #000;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div id="popup">👋 Bem-vindo de volta!</div>
+
+  <h1 id="typed-text">Carregando...</h1>
+  <p>Essa página HTML agora está com várias interações showzinhas. Brinca à vontade!</p>
+  <a href="#" class="button" onclick="showAlert()">Explorar</a>
+  <button class="toggle-dark" onclick="toggleDarkMode()">🌓 Modo Escuro</button>
+  <footer>&copy; 2025 - Feito com 💻 por Yuri</footer>
+
+  <script>
+    // Efeito de digitação no título
+    const text = "Bem-vindo à Página Show!";
+    let i = 0;
+    const typedText = document.getElementById("typed-text");
+
+    function type() {
+      if (i < text.length) {
+        typedText.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+
+    // Botão Explorar
+    function showAlert() {
+      alert("🚀 Você clicou em Explorar! Em breve, mais conteúdo!");
+    }
+
+    // Modo Escuro
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Popup de boas-vindas na primeira visita
+    window.onload = function () {
+      type();
+
+      if (!localStorage.getItem("visited")) {
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+        setTimeout(() => popup.style.display = "none", 4000);
+        localStorage.setItem("visited", "true");
+      }
+    };
+  </script>
+</body>
+</html>
